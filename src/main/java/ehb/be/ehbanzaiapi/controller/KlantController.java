@@ -1,7 +1,7 @@
 package ehb.be.ehbanzaiapi.controller;
 
 import ehb.be.ehbanzaiapi.model.Klant;
-import ehb.be.ehbanzaiapi.repository.KlantRepository;
+import ehb.be.ehbanzaiapi.model.DAO.KlantDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,16 +14,16 @@ import java.util.Optional;
 public class KlantController {
     
     @Autowired
-    private KlantRepository klantRepository;
+    private KlantDAO klantDAO;
     
     @GetMapping
     public List<Klant> getAllKlanten() {
-        return klantRepository.findAll();
+        return klantDAO.findAll();
     }
     
     @GetMapping("/friends/search")
     public ResponseEntity<List<Klant>> getFriendsByKlantId(@RequestParam Long id) {
-        Optional<Klant> klant = klantRepository.findById(id);
+        Optional<Klant> klant = klantDAO.findById(id);
         if (klant.isPresent()) {
             return ResponseEntity.ok(klant.get().getFriendList());
         }
@@ -35,6 +35,6 @@ public class KlantController {
                            @RequestParam String tier, 
                            @RequestParam String adres) {
         Klant klant = new Klant(email, tier, adres);
-        return klantRepository.save(klant);
+        return klantDAO.save(klant);
     }
 }

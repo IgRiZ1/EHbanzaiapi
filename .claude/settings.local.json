@@ -3,7 +3,8 @@
     "allow": [
       "Bash(./mvnw clean compile)",
       "Bash(export:*)",
-      "Bash(java:*)"
+      "Bash(java:*)",
+      "Bash(apt list:*)"
     ],
     "deny": [],
     "ask": []
